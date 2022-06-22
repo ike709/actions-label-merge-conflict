@@ -161,6 +161,9 @@ query openPullRequests($owner: String!, $repo: String!, $after: String, $baseRef
 
 		switch (pullRequest.mergeable) {
 			case "CONFLICTING":
+				if(pullRequest.isDraft) {
+					continue;
+				}
 				info(
 					`add "${dirtyLabel}", remove "${
 						removeOnDirtyLabel ? removeOnDirtyLabel : `nothing`
